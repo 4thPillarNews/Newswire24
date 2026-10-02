@@ -6,7 +6,7 @@ let allArticles = [];
 let filteredArticles = [];
 let currentPage = 1;
 let currentCategory = 'All';
-let currentLang = 'en'; // 'en' or 'hi'
+let currentLang = 'en';
 
 const CATEGORY_NEWS_DATA = {
     National: [
@@ -21,8 +21,8 @@ const CATEGORY_NEWS_DATA = {
                 hi: "सरकार ने अंतरराज्यीय व्यापार को बढ़ावा देने और प्रमुख औद्योगिक गलियारों में यात्रा के समय को कम करने के लिए नए एक्सप्रेसवे की घोषणा की।"
             },
             content: {
-                en: "The Union Cabinet today granted administrative approval for a comprehensive national highway expansion initiative. The strategic framework focuses on enhancing freight mobility and integrating modern digital tolling systems across state borders.\n\nKey officials confirmed that phase-one construction will begin within the upcoming quarter, generating thousands of regional employment opportunities and modernizing transport logistics.",
-                hi: "केंद्रीय मंत्रिमंडल ने आज एक व्यापक राष्ट्रीय राजमार्ग विस्तार पहल को प्रशासनिक मंजूरी दे दी। रणनीतिक ढांचा माल की आवाजाही को बढ़ाने और राज्य सीमाओं पर आधुनिक डिजिटल टोलिंग प्रणालियों को एकीकृत करने पर केंद्रित है।\n\nप्रमुख अधिकारियों ने पुष्टि की कि आगामी तिमाही के भीतर प्रथम चरण का निर्माण शुरू हो जाएगा, जिससे हजारों क्षेत्रीय रोजगार के अवसर पैदा होंगे।"
+                en: "The Union Cabinet has granted administrative approval for a national highway expansion project aimed at enhancing overall logistics efficiency across industrial corridors. The comprehensive strategic framework focuses on expanding high-density traffic routes, upgrading tolling infrastructure with automated digital systems, and strengthening connectivity between major manufacturing hubs.\n\nKey officials confirmed that phase-one development will begin within the upcoming quarter. The initiative is projected to significantly lower freight transit times, boost regional commerce, and generate thousands of direct and indirect employment opportunities across various sectors.\n\nFurthermore, state transport authorities will collaborate with urban planning boards to ensure seamless integration with local public transit networks. Modern safety standards and eco-friendly construction practices will be enforced throughout the development phase.",
+                hi: "केंद्रीय मंत्रिमंडल ने औद्योगिक गलियारों में रसद दक्षता को बढ़ाने के उद्देश्य से राष्ट्रीय राजमार्ग विस्तार परियोजना को प्रशासनिक स्वीकृति प्रदान की है। रणनीतिक ढांचे का ध्यान भीड़भाड़ वाले मार्गों के चौड़ीकरण, ऑटोमेटेड डिजिटल प्रणालियों के साथ टोल बुनियादी ढांचे के आधुनिकीकरण और प्रमुख विनिर्माण केंद्रों के बीच कनेक्टिविटी मजबूत करने पर केंद्रित है।\n\nअधिकारियों ने पुष्टि की कि प्रथम चरण का विकास आगामी तिमाही के भीतर शुरू होगा। इस पहल से माल ढुलाई के समय में उल्लेखनीय कमी आने, क्षेत्रीय व्यापार को बढ़ावा मिलने और कई क्षेत्रों में हजारों प्रत्यक्ष व अप्रत्यक्ष रोजगार के अवसर पैदा होने की उम्मीद है।\n\nइसके अलावा, राज्य परिवहन प्राधिकरण स्थानीय सार्वजनिक पारगमन नेटवर्क के साथ सहज एकीकरण सुनिश्चित करने के लिए शहरी नियोजन बोर्डों के साथ मिलकर काम करेंगे।"
             }
         },
         {
@@ -36,8 +36,8 @@ const CATEGORY_NEWS_DATA = {
                 hi: "एक एकीकृत ऑनलाइन पोर्टल आज लाइव हो गया है, जो नागरिकों को नागरिक दस्तावेजों और कल्याणकारी योजनाओं तक सहज पहुंच प्रदान करता है।"
             },
             content: {
-                en: "In a push towards end-to-end digital governance, central authorities officially unveiled a unified public service platform today. Citizens can now access verified identity documents, welfare applications, and land records through a secure single-window system.",
-                hi: "डिजिटल प्रशासन की दिशा में एक कदम उठाते हुए केंद्रीय अधिकारियों ने आज एक एकीकृत सार्वजनिक सेवा मंच का अनावरण किया। नागरिक अब सुरक्षित सिंगल-विंडो सिस्टम के माध्यम से सत्यापित पहचान पत्र और कल्याणकारी आवेदनों तक पहुंच सकते हैं।"
+                en: "In a continuous effort to advance digital governance, government authorities today launched a comprehensive unified online public service system. The digital portal consolidates multiple civic verification functions into a single interface, allowing citizens to apply for certificates, review welfare eligibility, and manage municipal utilities without visiting regional offices.\n\nThe system utilizes end-to-end encryption to safeguard user data while reducing administrative turnaround times for routine applications. Automated status tracking and instant notification services have also been integrated to provide real-time updates to applicants.\n\nOfficials stated that regional help desks and digital literacy campaigns will be established to assist citizens in rural areas, ensuring inclusive adoption of the updated portal across all demographics.",
+                hi: "डिजिटल गवर्नेंस को बढ़ावा देने के प्रयास में, सरकार ने आज एक एकीकृत ऑनलाइन सार्वजनिक सेवा प्रणाली शुरू की है। यह डिजिटल पोर्टल कई नागरिक सत्यापन कार्यों को एक ही प्लेटफॉर्म पर समेकित करता है, जिससे नागरिक प्रमाणपत्रों के लिए आवेदन कर सकते हैं और नागरिक सुविधाओं का प्रबंधन बिना क्षेत्रीय कार्यालयों के चक्कर काटे कर सकते हैं।\n\nप्रणाली उपयोगकर्ता डेटा की सुरक्षा के लिए एंड-टू-एंड एन्क्रिप्शन का उपयोग करती है जबकि नियमित आवेदनों के लिए प्रशासनिक समय को कम करती है। आवेदकों को रियल-टाइम अपडेट प्रदान करने के लिए स्वचालित स्थिति ट्रैकिंग और सूचना सेवाएं भी एकीकृत की गई हैं।\n\nअधिकारियों ने कहा कि ग्रामीण क्षेत्रों में नागरिकों की सहायता के लिए क्षेत्रीय हेल्प डेस्क स्थापित किए जाएंगे ताकि सभी वर्गों तक इसका लाभ पहुंच सके।"
             }
         }
     ],
@@ -53,8 +53,8 @@ const CATEGORY_NEWS_DATA = {
                 hi: "80 से अधिक देशों के प्रतिनिधि अगले दशक में सौर और पवन क्षमता को दोगुना करने के लिए प्रतिबद्ध हैं।"
             },
             content: {
-                en: "International climate summit representatives concluded bilateral negotiations today by signing a landmark framework for clean energy financing. The agreement prioritizes cross-border technology transfers and subsidizes solar infrastructure.",
-                hi: "अंतर्राष्ट्रीय जलवायु शिखर सम्मेलन के प्रतिनिधियों ने आज स्वच्छ ऊर्जा वित्तपोषण के लिए एक ऐतिहासिक समझौते पर हस्ताक्षर करके द्विपक्षीय बातचीत का समापन किया। यह समझौता सौर बुनियादी ढांचे को सब्सिडी देने को प्राथमिकता देता है।"
+                en: "International climate summit representatives concluded high-level multilateral discussions today by establishing a binding framework for clean energy financing. Delegations from participating countries agreed to accelerate the global transition toward renewable power generation, committing to double solar and wind generation capacity within the coming decade.\n\nThe accord outlines specific financial mechanisms to assist developing nations in acquiring advanced clean energy infrastructure and modernizing power grids. Strategic international funds will be directed toward technology transfers and research collaborations focused on high-efficiency energy storage systems.\n\nGlobal policy analysts commended the multilateral agreement, noting that clear targets and transparent monitoring standards will play a vital role in curbing overall emissions while supporting stable global economic development.",
+                hi: "अंतर्राष्ट्रीय जलवायु शिखर सम्मेलन के प्रतिनिधियों ने स्वच्छ ऊर्जा वित्तपोषण के लिए एक बाध्यकारी ढांचे की स्थापना करके उच्च स्तरीय बहुपक्षीय चर्चाओं का समापन किया। भाग लेने वाले देशों के प्रतिनिधिमंडल आने वाले दशक में सौर और पवन उत्पादन क्षमता को दोगुना करने के लिए प्रतिबद्ध हुए हैं।\n\nयह समझौता विकासशील देशों को उन्नत स्वच्छ ऊर्जा बुनियादी ढांचा प्राप्त करने और बिजली ग्रिड के आधुनिकीकरण में सहायता करने के लिए विशिष्ट वित्तीय तंत्र की रूपरेखा तैयार करता है। प्रौद्योगिकी हस्तांतरण और अनुसंधान सहयोग की दिशा में अंतरराष्ट्रीय कोष निर्देशित किए जाएंगे।\n\nवैश्विक नीति विश्लेषकों ने बहुपक्षीय समझौते की सराहना की और कहा कि स्पष्ट लक्ष्य और पारदर्शी निगरानी मानक उत्सर्जन को रोकने में महत्वपूर्ण भूमिका निभाएंगे।"
             }
         }
     ],
@@ -70,8 +70,8 @@ const CATEGORY_NEWS_DATA = {
                 hi: "स्प्रिंट और ट्रैक एथलीटों ने हाई-ऑक्टेन क्वालीफिकेशन दौर के दौरान नए राष्ट्रीय टाइमिंग रिकॉर्ड बनाए।"
             },
             content: {
-                en: "The annual National Athletics Championship kicked off today with stellar athletic achievements across track and field events. Elite sprinters shattered previous meet benchmarks in the 100m sprint finals.",
-                hi: "वार्षिक राष्ट्रीय एथलेटिक्स चैंपियनशिप की शुरुआत आज ट्रैक और फील्ड स्पर्धाओं में शानदार उपलब्धियों के साथ हुई। 100 मीटर स्प्रिंट फाइनल में धावकों ने पिछले रिकॉर्ड तोड़ दिए।"
+                en: "The annual National Athletics Championship opened today with extraordinary athletic achievements across multiple track and field categories. Top-tier sprinters established impressive new national timing records during the preliminary qualification rounds, drawing enthusiastic applause from stadium spectators.\n\nCoaching staff and sports analysts attributed the improved athletic standards to enhanced conditioning programs, modernized training facilities, and increased international exposure for young talent over the past year.\n\nThe tournament will continue over the weekend, featuring finals in middle-distance running, long jump, and relay events. Victors in this championship will qualify directly for the upcoming international athletic games roster.",
+                hi: "वार्षिक राष्ट्रीय एथलेटिक्स चैंपियनशिप की शुरुआत आज कई ट्रैक और फील्ड श्रेणियों में असाधारण प्रदर्शन के साथ हुई। शुरुआती क्वालीफिकेशन दौर के दौरान शीर्ष धावकों ने नए राष्ट्रीय टाइमिंग रिकॉर्ड बनाए।\n\nकोचिंग स्टाफ और खेल विश्लेषकों ने पिछले एक साल में बेहतर कंडीशनिंग कार्यक्रमों, आधुनिक प्रशिक्षण सुविधाओं और युवा प्रतिभाओं के अंतरराष्ट्रीय अनुभव को इन शानदार परिणामों का श्रेय दिया।\n\nटूर्नामेंट सप्ताहांत के दौरान जारी रहेगा, जिसमें मिडिल-डिस्टेंस रनिंग, लॉन्ग जंप और रिले इवेंट्स के फाइनल शामिल होंगे। विजेता आगामी अंतरराष्ट्रीय खेलों के लिए सीधे क्वालीफाई करेंगे।"
             }
         }
     ],
@@ -83,12 +83,12 @@ const CATEGORY_NEWS_DATA = {
             },
             image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80",
             summary: {
-                en: "Critically acclaimed world cinema previews receive standing ovations from audience.",
-                hi: "समीक्षकों द्वारा सराही गई विश्व सिनेमा की झांकियों को दर्शकों से भरपूर सराहना मिली।"
+                en: "Critically acclaimed world cinema previews receive standing ovations from audience and critics.",
+                hi: "समीक्षकों द्वारा सराही गई विश्व सिनेमा की झांकियों को दर्शकों और आलोचकों से भरपूर सराहना मिली।"
             },
             content: {
-                en: "The annual international film festival opened with a star-studded red carpet gathering directors, actors, and indie filmmakers. Premieres featured diverse narrative storytelling.",
-                hi: "वार्षिक अंतर्राष्ट्रीय फिल्म महोत्सव की शुरुआत रेड कार्पेट पर निर्देशकों, अभिनेताओं और इंडी फिल्म निर्माताओं के जमावड़े के साथ हुई।"
+                en: "The annual international film festival opened today with a grand red carpet showcase featuring renowned directors, actors, and independent filmmakers from around the globe. Premieres included a diverse array of feature films, documentary projects, and experimental shorts focusing on contemporary cultural themes.\n\nAudience members and film critics praised the opening night selections, highlighting the exceptional narrative depth and cinematography on display. Panel discussions held alongside screenings provided emerging creators with valuable networking opportunities and industry insights.\n\nThe week-long festival will feature masterclasses led by acclaimed cinema professionals, technical workshops on digital restoration, and award presentations recognizing standout contributions in storytelling and direction.",
+                hi: "वार्षिक अंतर्राष्ट्रीय फिल्म महोत्सव की शुरुआत आज एक भव्य रेड कार्पेट शोकेस के साथ हुई, जिसमें दुनिया भर के प्रसिद्ध निर्देशक, अभिनेता और स्वतंत्र फिल्म निर्माता एकत्र हुए।\n\nदर्शकों और फिल्म आलोचकों ने उद्घाटन रात के चयनों की सराहना की, जिसमें कहानी की गहराई और सिनेमैटोग्राफी को उजागर किया गया। प्रदर्शनियों के साथ आयोजित पैनल चर्चाओं ने उभरते रचनाकारों को उद्योग के अनुभव और नेटवर्किंग के अवसर प्रदान किए।\n\nसप्ताह भर चलने वाले इस महोत्सव में मास्टरक्लास, डिजिटल रिस्टोरेशन पर तकनीकी कार्यशालाएं और कहानी कहने के क्षेत्र में उत्कृष्ट योगदान को मान्यता देने वाले पुरस्कार समारोह शामिल होंगे।"
             }
         }
     ],
@@ -100,12 +100,12 @@ const CATEGORY_NEWS_DATA = {
             },
             image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
             summary: {
-                en: "Educational boards introduce hands-on coding and practical reasoning modules for students.",
-                hi: "शिक्षा बोर्डों ने छात्रों के लिए कोडिंग और व्यावहारिक तर्क मॉड्यूल पेश किए हैं।"
+                en: "Educational boards introduce hands-on coding and practical reasoning modules for secondary students.",
+                hi: "शिक्षा बोर्डों ने माध्यमिक छात्रों के लिए कोडिंग और व्यावहारिक तर्क मॉड्यूल पेश किए हैं।"
             },
             content: {
-                en: "School education authorities today released an updated curriculum guideline aimed at fostering problem-solving skills among secondary students. Foundational AI courses are now integrated.",
-                hi: "स्कूली शिक्षा अधिकारियों ने आज माध्यमिक छात्रों के बीच समस्या-समाधान कौशल को बढ़ावा देने के उद्देश्य से एक अद्यतन पाठ्यक्रम दिशानिर्देश जारी किया।"
+                en: "Educational authorities today released an updated curriculum framework designed to enhance practical problem-solving skills and technical literacy among secondary school students. The revised guidelines integrate foundational modules in artificial intelligence, computational logic, and hands-on laboratory experimentation into standard learning tracks.\n\nAcademic advisors emphasized that the updated framework shifts pedagogical focus away from passive memorization toward interactive, inquiry-based learning. Teacher training workshops are currently underway across districts to ensure smooth classroom implementation.\n\nParent-teacher associations and educational researchers have welcomed the modernization effort, stating that early exposure to analytical reasoning prepares students effectively for higher education and modern workforce requirements.",
+                hi: "शिक्षा अधिकारियों ने आज माध्यमिक छात्रों के बीच व्यावहारिक समस्या-समाधान कौशल और तकनीकी साक्षरता को बढ़ाने के लिए एक अपडेटेड पाठ्यक्रम ढांचा जारी किया। संशोधित दिशानिर्देश मानक शिक्षण ट्रैक में आर्टिफिशियल इंटेलिजेंस और प्रयोगात्मक प्रयोगशाला मॉड्यूल को एकीकृत करते हैं।\n\nशैक्षणिक सलाहकारों ने जोर देकर कहा कि अपडेटेड ढांचा केवल रटने की प्रणाली से हटकर इंटरैक्टिव शिक्षण की ओर ध्यान केंद्रित करता है। सुचारू कार्यान्वयन सुनिश्चित करने के लिए जिला स्तर पर शिक्षक प्रशिक्षण कार्यशालाएं चल रही हैं।\n\nअभिभावक-शिक्षक संघों ने इस आधुनिकीकरण का स्वागत किया है और कहा है कि विश्लेषणात्मक सोच की शुरुआती समझ छात्रों को उच्च शिक्षा के लिए तैयार करती है।"
             }
         }
     ],
@@ -121,8 +121,8 @@ const CATEGORY_NEWS_DATA = {
                 hi: "बैंकिंग क्षेत्रों में सकारात्मक तिमाही वित्तीय रिपोर्टों के बाद निवेशकों का विश्वास बढ़ा है।"
             },
             content: {
-                en: "Equity benchmark indices rallied to fresh historic highs today, led by strong buying momentum in technology and banking stocks. Financial analysts attributed the rally to declining inflation.",
-                hi: "प्रौद्योगिकी और बैंकिंग शेयरों में मजबूत खरीदारी के कारण इक्विटी बेंचमार्क सूचकांक आज नए ऐतिहासिक उच्चतम स्तर पर पहुंचे।"
+                en: "Benchmark equity indices surged to new record highs during today's trading session, driven by sustained institutional buying across banking, technology, and manufacturing sectors. Strong quarterly earning statements and steady macroeconomic indicators contributed to upbeat market sentiment.\n\nFinancial analysts highlighted that robust domestic demand and controlled inflation figures have strengthened investor trust in broader market resilience. Foreign institutional investors maintained net positive buying activity for the third consecutive week.\n\nMarket experts advise retail investors to remain focused on fundamentally strong companies while maintaining balanced portfolio diversification amid evolving global trade dynamic variables.",
+                hi: "बैंकिंग, प्रौद्योगिकी और विनिर्माण क्षेत्रों में निरंतर संस्थागत खरीदारी के कारण आज के कारोबारी सत्र के दौरान बेंचमार्क सूचकांक नए रिकॉर्ड स्तर पर पहुंचे। मजबूत तिमाही परिणाम और स्थिर मैक्रोइकोनॉमिक संकेतकों ने बाजार की धारणा को मजबूत करने में योगदान दिया।\n\nवित्तीय विश्लेषकों ने कहा कि मजबूत घरेलू मांग और नियंत्रित मुद्रास्फीति के आंकड़ों ने बाजार के प्रति निवेशकों के भरोसे को मजबूत किया है। विदेशी संस्थागत निवेशकों ने लगातार तीसरे सप्ताह सकारात्मक खरीदारी गतिविधि बनाए रखी।\n\nबाजार विशेषज्ञों का मानना है कि बुनियादी रूप से मजबूत कंपनियों पर ध्यान केंद्रित करना और संतुलित पोर्टफोलियो बनाए रखना फायदेमंद रहेगा।"
             }
         }
     ]
@@ -272,7 +272,7 @@ function openModal(id) {
             Google AdSense Placeholder (In-Article)
         </div>
 
-        <div class="text-xs sm:text-sm text-gray-700 dark:text-gray-200 space-y-3 leading-relaxed whitespace-pre-line">
+        <div class="text-xs sm:text-sm text-gray-700 dark:text-gray-200 space-y-4 leading-relaxed whitespace-pre-line">
             ${contentText}
         </div>
 
@@ -293,27 +293,30 @@ function closeModal() {
 
 function setupThemeToggle() {
     const btn = document.getElementById('themeToggle');
-    btn.addEventListener('click', () => {
+    btn.onclick = () => {
         document.documentElement.classList.toggle('dark');
         const isDark = document.documentElement.classList.contains('dark');
         btn.innerText = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
-    });
+    };
 }
 
 function setupLanguageToggle() {
-    const headerRight = document.getElementById('themeToggle').parentElement;
-    const langBtn = document.createElement('button');
-    langBtn.id = 'langToggle';
-    langBtn.className = "px-3 py-1.5 ml-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:opacity-90 transition";
-    langBtn.innerText = "🇮🇳 हिंदी";
+    let langBtn = document.getElementById('langToggle');
+    if (!langBtn) {
+        const headerRight = document.getElementById('themeToggle').parentElement;
+        langBtn = document.createElement('button');
+        langBtn.id = 'langToggle';
+        langBtn.className = "px-3 py-1.5 ml-2 bg-red-600 text-white rounded-lg text-xs font-bold hover:opacity-90 transition";
+        headerRight.appendChild(langBtn);
+    }
     
-    langBtn.addEventListener('click', () => {
+    langBtn.innerText = currentLang === 'en' ? "🇮🇳 हिंदी" : "🇬🇧 English";
+    
+    langBtn.onclick = () => {
         currentLang = currentLang === 'en' ? 'hi' : 'en';
         langBtn.innerText = currentLang === 'en' ? "🇮🇳 हिंदी" : "🇬🇧 English";
-        init();
-    });
-
-    headerRight.appendChild(langBtn);
+        renderFeed();
+    };
 }
 
 window.onload = init;
