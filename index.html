@@ -3,98 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newswire24 - Verified Daily News</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
+    <title>Newswire24</title>
+    <style>
+        :root {
+            --primary-color: #d32f2f;
+            --primary-dark: #b71c1c;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #212121;
         }
-    </script>
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 3px solid var(--primary-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            display: flex;
+            overflow-x: auto;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        .category-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        h2.section-title {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 10px;
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        #news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .news-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        .news-content p {
+            font-size: 14px;
+            color: #555;
+            flex-grow: 1;
+        }
+
+        .news-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 18px;
+            color: var(--primary-color);
+            font-weight: bold;
+            grid-column: 1 / -1;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col justify-between transition-colors duration-200">
+<body>
 
-    <!-- Header -->
-    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div>
-                <a href="index.html" class="text-2xl font-black text-blue-600 dark:text-blue-500 tracking-tight">Newswire24</a>
-                <p class="text-[10px] text-gray-500 dark:text-gray-400 font-medium hidden sm:block">Powered by GNews API Network</p>
-            </div>
-            <div id="headerActions" class="flex items-center space-x-2">
-                <button id="themeToggle" class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-xs font-bold text-gray-700 dark:text-gray-200">🌙 Dark Mode</button>
-            </div>
+    <header>
+        <div class="logo">Newswire24</div>
+        <div class="header-actions">
+            <button id="lang-toggle-btn" class="btn">🌐 Switch to Hindi</button>
         </div>
-
-        <!-- Navigation Bar (BLUE Theme) -->
-        <nav class="bg-blue-600 text-white overflow-x-auto">
-            <div class="max-w-6xl mx-auto px-4 flex space-x-6 text-xs font-bold py-2.5 whitespace-nowrap">
-                <button onclick="loadNews('general')" class="hover:underline">Home</button>
-                <button onclick="loadNews('nation')" class="hover:underline">National</button>
-                <button onclick="loadNews('world')" class="hover:underline">International</button>
-                <button onclick="loadNews('sports')" class="hover:underline">Sports</button>
-                <button onclick="loadNews('entertainment')" class="hover:underline">Entertainment</button>
-                <button onclick="loadNews('technology')" class="hover:underline">Technology</button>
-                <button onclick="loadNews('business')" class="hover:underline">Business</button>
-            </div>
-        </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-grow grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- Left: News Feed -->
-        <section class="md:col-span-2 space-y-4">
-            <div class="flex justify-between items-center border-b border-gray-300 dark:border-gray-700 pb-2">
-                <h1 id="currentCategoryTitle" class="text-lg font-black uppercase text-gray-800 dark:text-white">Top Headlines</h1>
-                <span id="articleCountBadge" class="text-[11px] font-bold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded">Syncing...</span>
-            </div>
+    <nav>
+        <button class="category-btn active" data-category="general">Home</button>
+        <button class="category-btn" data-category="nation">National</button>
+        <button class="category-btn" data-category="world">International</button>
+        <button class="category-btn" data-category="sports">Sports</button>
+        <button class="category-btn" data-category="entertainment">Entertainment</button>
+        <button class="category-btn" data-category="technology">Technology</button>
+        <button class="category-btn" data-category="business">Business</button>
+    </nav>
 
-            <div id="newsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Articles dynamically injected -->
-            </div>
-        </section>
-
-        <!-- Right: Sidebar -->
-        <aside class="space-y-6">
-            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 text-center">
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Advertisement</p>
-                <div class="w-full h-60 bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center text-xs text-gray-400 font-bold rounded-lg">
-                    Google AdSense Placeholder
-                </div>
-            </div>
-        </aside>
-    </main>
-
-    <!-- Modal -->
-    <div id="articleModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative shadow-2xl border border-gray-200 dark:border-gray-700">
-            <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm hover:bg-gray-300">✕</button>
-            <div id="modalContent"></div>
+    <div class="container">
+        <h2 class="section-title">TOP HEADLINES</h2>
+        <div id="news-container">
+            <p class="loading">Fetching news...</p>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-gray-300 mt-12 py-8 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-            <div>
-                <h3 class="text-sm font-bold text-white mb-2">Newswire24</h3>
-                <p class="text-gray-400 leading-relaxed">Fact-checked daily news updates aggregated via GNews API network.</p>
-            </div>
-            <div>
-                <h3 class="text-sm font-bold text-white mb-2">Legal Compliance</h3>
-                <ul class="space-y-1 text-gray-400">
-                    <li><button onclick="showLegalPage('about')" class="hover:underline text-left">About Us</button></li>
-                    <li><button onclick="showLegalPage('privacy')" class="hover:underline text-left">Privacy Policy</button></li>
-                    <li><button onclick="showLegalPage('terms')" class="hover:underline text-left">Terms & Conditions</button></li>
-                    <li><button onclick="showLegalPage('disclaimer')" class="hover:underline text-left">Disclaimer</button></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-6xl mx-auto px-4 mt-6 pt-4 border-t border-slate-800 text-[11px] text-gray-500 flex flex-col sm:flex-row justify-between">
-            <p>© 2026 Newswire24. All rights reserved.</p>
-            <p>Author Byline: Gaurav Sharma</p>
-        </div>
-    </footer>
 
     <script src="app.js"></script>
 </body>
