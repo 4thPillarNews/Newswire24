@@ -1,1 +1,112 @@
 
+<!DOCTYPE html>
+<html lang="hi" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newswire24 - Fast & Verified News</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col font-sans transition-colors duration-200">
+
+    <!-- Header -->
+    <header class="border-b bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-black text-red-600 dark:text-red-500 tracking-tight">Newswire24</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-medium">Fast, Verified & Trusted Daily News</p>
+            </div>
+            <button id="themeToggle" class="px-3 py-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg text-xs font-bold hover:opacity-80 transition">
+                🌙 Dark Mode
+            </button>
+        </div>
+        
+        <!-- Category Navbar -->
+        <nav class="bg-red-600 text-white dark:bg-red-700">
+            <div class="max-w-7xl mx-auto px-4 flex space-x-6 overflow-x-auto py-2.5 text-sm font-semibold scrollbar-none" id="categoryNav">
+                <button onclick="filterCategory('All')" class="hover:underline whitespace-nowrap opacity-100 font-bold">Home</button>
+                <button onclick="filterCategory('National')" class="hover:underline whitespace-nowrap opacity-90">National</button>
+                <button onclick="filterCategory('International')" class="hover:underline whitespace-nowrap opacity-90">International</button>
+                <button onclick="filterCategory('Sports')" class="hover:underline whitespace-nowrap opacity-90">Sports</button>
+                <button onclick="filterCategory('Entertainment')" class="hover:underline whitespace-nowrap opacity-90">Entertainment</button>
+                <button onclick="filterCategory('Education')" class="hover:underline whitespace-nowrap opacity-90">Education</button>
+                <button onclick="filterCategory('Business')" class="hover:underline whitespace-nowrap opacity-90">Business</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- AdSense Placeholder Top -->
+    <div class="max-w-7xl mx-auto px-4 my-4 w-full">
+        <div class="w-full h-20 bg-gray-200 dark:bg-gray-800 border-2 border-dashed border-gray-400 dark:border-gray-600 flex items-center justify-center text-xs text-gray-500 font-bold rounded-lg">
+            Google AdSense Placeholder (Header Banner)
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-4 flex-grow grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
+        
+        <!-- News Feed Area -->
+        <section class="lg:col-span-2">
+            <div class="flex justify-between items-center border-b-2 border-red-600 mb-6 pb-2">
+                <h2 id="currentCategoryTitle" class="text-xl font-black uppercase tracking-wider text-red-600 dark:text-red-500">Latest Breaking News</h2>
+                <span id="articleCountBadge" class="text-xs bg-gray-200 dark:bg-gray-700 px-2.5 py-1 rounded-full font-bold">Loading...</span>
+            </div>
+
+            <!-- News Articles Container -->
+            <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center items-center space-x-3 my-8" id="paginationControls"></div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="space-y-6">
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <h3 class="text-sm font-bold border-b pb-2 mb-3 text-red-600">Editorial Note</h3>
+                <p class="text-xs text-gray-600 dark:text-gray-300">Editor-in-Chief: <strong class="text-gray-900 dark:text-white">Gaurav Sharma</strong></p>
+                <p class="text-xs text-gray-500 mt-1">Strictly fact-verified daily reports powered by multi-source news indexing.</p>
+            </div>
+
+            <div class="w-full h-64 bg-gray-200 dark:bg-gray-800 border-2 border-dashed border-gray-400 dark:border-gray-600 flex items-center justify-center text-xs text-gray-500 font-bold rounded-lg">
+                Google AdSense Placeholder (Sidebar)
+            </div>
+        </aside>
+    </main>
+
+    <!-- Modal -->
+    <div id="articleModal" class="fixed inset-0 bg-black/70 hidden z-50 overflow-y-auto p-4 flex items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 max-w-2xl w-full rounded-2xl p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-4 right-4 bg-gray-200 dark:bg-gray-700 hover:bg-red-600 hover:text-white w-8 h-8 rounded-full font-bold text-sm">✕</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8 border-t border-gray-800 mt-auto text-xs">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <h3 class="font-bold text-white text-sm mb-2">Newswire24</h3>
+                <p class="text-gray-400">Automated, verified, real-time daily news publication.</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-white text-sm mb-2">Legal Compliance</h3>
+                <ul class="space-y-1 text-gray-400">
+                    <li><a href="#" class="hover:underline">About Us</a></li>
+                    <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:underline">Terms & Conditions</a></li>
+                    <li><a href="#" class="hover:underline">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-gray-400">© 2026 Newswire24. All rights reserved.</p>
+                <p class="text-gray-500 mt-1">Author Byline: Gaurav Sharma</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
