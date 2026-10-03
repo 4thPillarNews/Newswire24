@@ -1,7 +1,6 @@
 let currentLang = 'en';
 let currentCategory = 'general';
 
-// Alternate Free News Stream Engine
 async function fetchNews(category = 'general', lang = 'en') {
     const newsContainer = document.getElementById('news-container');
     if (newsContainer) {
@@ -9,7 +8,6 @@ async function fetchNews(category = 'general', lang = 'en') {
     }
 
     try {
-        // Fallback feed fetching directly to prevent API key exhaustion
         const queryCategory = category === 'general' ? 'top' : category;
         const apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${queryCategory}/in.json`;
 
@@ -98,7 +96,6 @@ function displayNews(articles) {
     });
 }
 
-// Category selection
 document.querySelectorAll('.category-btn').forEach(button => {
     button.addEventListener('click', (e) => {
         document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
@@ -109,7 +106,6 @@ document.querySelectorAll('.category-btn').forEach(button => {
     });
 });
 
-// Hindi / English Toggle Button
 const langToggleBtn = document.getElementById('lang-toggle-btn');
 if (langToggleBtn) {
     langToggleBtn.addEventListener('click', () => {
@@ -124,5 +120,4 @@ if (langToggleBtn) {
     });
 }
 
-// Initial fetch
 fetchNews(currentCategory, currentLang);
