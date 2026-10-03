@@ -1,6 +1,3 @@
-const p1 = "defe9ad9806c0ed";
-const API_KEY = p1 + "89920885adc761c4f";
-
 let currentLang = 'en';
 let currentCategory = 'general';
 
@@ -11,10 +8,7 @@ async function fetchNews(category = 'general', lang = 'en') {
     }
 
     try {
-        const targetUrl = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=${lang}&apikey=${API_KEY}`;
-        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
-
-        const response = await fetch(proxyUrl);
+        const response = await fetch(`/.netlify/functions/get-news?category=${category}&lang=${lang}`);
         const data = await response.json();
 
         if (data.articles && data.articles.length > 0) {
@@ -37,49 +31,20 @@ function displayNews(articles) {
         const articleCard = document.createElement('article');
         articleCard.className = 'article-card';
 
-        const defaultImage = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80';
-        
-        // Byline set to Gaurav Sharma
-        const authorName = currentLang === 'hi' ? 'गौरव शर्मा (न्यूज़वायर24)' : 'Gaurav Sharma (Newswire24)';
-        
-        const pubDate = new Date(article.publishedAt).toLocaleDateString(currentLang === 'hi' ? 'hi-IN' : 'en-US', {
-            year: 'numeric', month: 'long', day: 'numeric'
-        });
-
-        // Smart Content Assembly into 3 full paragraphs
-        const desc = article.description || '';
-        const rawContent = (article.content || '').replace(/\[\+\d+\s*chars\]/g, '');
-
-        let p1, p2, p3;
-
-        if (currentLang === 'hi') {
-            p1 = `${desc} घटनाक्रम से जुड़े मुख्य तथ्य सामने आ चुके हैं, जिनकी विस्तृत समीक्षा की जा रही है।`;
-            p2 = rawContent 
-                ? `${rawContent} इस विषय पर लगातार स्थिति का विश्लेषण किया जा रहा है ताकि सटीक और सत्यापित विवरण सामने रखे जा सकें।`
-                : `मामले के विविध पहलुओं को ध्यान में रखते हुए स्थिति की समीक्षा की जा रही है। उपलब्ध प्राथमिक आंकड़ों के आधार पर कार्यवाही जारी है।`;
-            p3 = `न्यूज़वायर24 डेस्क इस पूरे घटनाक्रम पर लगातार नज़र बनाए हुए है। जैसे ही अतिरिक्त तथ्य एवं आधिकारिक घोषणाएं प्राप्त होंगी, रिपोर्ट को अपडेट कर दिया जाएगा। (प्रकाशन तिथि: ${pubDate})`;
-        } else {
-            p1 = `${desc} Official facts surrounding this development have emerged, prompting immediate analysis across key channels.`;
-            p2 = rawContent 
-                ? `${rawContent} Ongoing technical and ground evaluations are being conducted to ensure that all verifiable metrics are thoroughly accounted for.`
-                : `Key observers are actively monitoring the unfolding events to maintain complete accuracy in public communications.`;
-            p3 = `Newswire24 Desk continues to follow this report in real time. Further authenticated details will be updated as soon as official briefings are issued. (Published: ${pubDate})`;
-        }
-
         const shareText = encodeURIComponent(`${article.title} - Read full report by Gaurav Sharma on Newswire24`);
         const pageUrl = encodeURIComponent(window.location.href);
 
         articleCard.innerHTML = `
             <h2 class="article-title">${article.title}</h2>
             <div class="article-byline">
-                <span>By ${authorName}</span>
-                <span>${pubDate}</span>
+                <span>By Gaurav Sharma (Newswire24)</span>
+                <span>${article.publishedAt}</span>
             </div>
-            <img src="${article.image || defaultImage}" alt="News Image" class="article-img" onerror="this.src='${defaultImage}'">
+            <img src="${article.image}" alt="News Image" class="article-img" onerror="this.src='https://via.placeholder.com/800x450?text=Newswire24'">
             <div class="article-body">
-                <p>${p1}</p>
-                <p>${p2}</p>
-                <p>${p3}</p>
+                <p>${article.paragraph1}</p>
+                <p>${article.paragraph2}</p>
+                <p>${article.paragraph3}</p>
             </div>
             <div class="share-section">
                 <span class="share-title">${currentLang === 'hi' ? 'शेयर करें:' : 'Share Article:'}</span>
