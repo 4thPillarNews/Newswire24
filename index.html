@@ -3,178 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newswire24</title>
+    <title>Newswire24 - Real-time Authenticated News</title>
     <style>
         :root {
-            --primary-color: #d32f2f;
-            --primary-dark: #b71c1c;
-            --bg-color: #f4f6f8;
-            --card-bg: #ffffff;
-            --text-color: #212121;
+            --primary: #c0392b;
+            --dark: #2c3e50;
+            --bg: #f8f9fa;
         }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            background-color: var(--bg);
+            color: #333;
         }
-
         header {
-            background-color: #ffffff;
-            border-bottom: 3px solid var(--primary-color);
+            background-color: var(--primary);
+            color: white;
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
         .logo {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
-            color: var(--primary-color);
         }
-
-        .header-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
+        .btn-toggle {
+            background: white;
+            color: var(--primary);
             border: none;
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: bold;
         }
-
-        .btn:hover {
-            background-color: var(--primary-dark);
-        }
-
         nav {
-            background-color: var(--primary-color);
+            background: var(--dark);
             display: flex;
             overflow-x: auto;
             padding: 10px;
-            gap: 10px;
         }
-
         .category-btn {
             background: transparent;
-            color: white;
             border: none;
+            color: white;
             padding: 8px 16px;
-            font-size: 15px;
+            margin-right: 5px;
             cursor: pointer;
             border-radius: 4px;
             white-space: nowrap;
         }
-
-        .category-btn:hover, .category-btn.active {
-            background-color: rgba(255, 255, 255, 0.2);
-            font-weight: bold;
+        .category-btn.active, .category-btn:hover {
+            background: var(--primary);
         }
-
-        .container {
-            max-width: 1100px;
+        main {
+            max-width: 800px;
             margin: 20px auto;
             padding: 0 15px;
         }
-
-        h2.section-title {
-            border-left: 5px solid var(--primary-color);
-            padding-left: 10px;
-            margin-bottom: 20px;
-            color: #111;
-        }
-
-        #news-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .news-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .news-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .news-content {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .news-content h3 {
-            margin: 0 0 10px 0;
-            font-size: 18px;
-            line-height: 1.4;
-        }
-
-        .news-content p {
-            font-size: 14px;
-            color: #555;
-            flex-grow: 1;
-        }
-
-        .news-content a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 10px;
-            display: inline-block;
-        }
-
         .loading {
             text-align: center;
+            padding: 40px;
             font-size: 18px;
-            color: var(--primary-color);
-            font-weight: bold;
-            grid-column: 1 / -1;
+            color: #666;
         }
+        .article-card {
+            background: white;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .article-title {
+            margin-top: 0;
+            font-size: 22px;
+            color: #111;
+        }
+        .article-byline {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        .article-img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .article-body p {
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: #444;
+        }
+        .share-section {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .share-title {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .share-btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+        }
+        .share-wa { background: #25D366; }
+        .share-fb { background: #1877F2; }
+        .share-x { background: #000000; }
+        .share-link { background: #6c757d; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">Newswire24</div>
-        <div class="header-actions">
-            <button id="lang-toggle-btn" class="btn">🌐 Switch to Hindi</button>
-        </div>
+        <button id="lang-toggle-btn" class="btn-toggle">🌐 Switch to Hindi</button>
     </header>
 
     <nav>
-        <button class="category-btn active" data-category="general">Home</button>
-        <button class="category-btn" data-category="nation">National</button>
-        <button class="category-btn" data-category="world">International</button>
+        <button class="category-btn active" data-category="general">General</button>
+        <button class="category-btn" data-category="business">Business</button>
+        <button class="category-btn" data-category="technology">Technology</button>
         <button class="category-btn" data-category="sports">Sports</button>
         <button class="category-btn" data-category="entertainment">Entertainment</button>
-        <button class="category-btn" data-category="technology">Technology</button>
-        <button class="category-btn" data-category="business">Business</button>
+        <button class="category-btn" data-category="health">Health</button>
+        <button class="category-btn" data-category="science">Science</button>
     </nav>
 
-    <div class="container">
-        <h2 class="section-title">TOP HEADLINES</h2>
-        <div id="news-container">
-            <p class="loading">Fetching news...</p>
-        </div>
-    </div>
+    <main id="news-container">
+        <div class="loading">Loading news...</div>
+    </main>
 
     <script src="app.js"></script>
 </body>
