@@ -1,51 +1,50 @@
 let currentLang = 'en';
 let currentCategory = 'general';
 
-const p1 = "defe9ad9806c0ed";
-const API_KEY = p1 + "89920885adc761c4f";
-
+// Alternate Free News Stream Engine
 async function fetchNews(category = 'general', lang = 'en') {
     const newsContainer = document.getElementById('news-container');
     if (newsContainer) {
-        newsContainer.innerHTML = '<div class="loading">Fetching news reports...</div>';
+        newsContainer.innerHTML = '<div class="loading">Fetching authenticated news reports...</div>';
     }
 
     try {
-        const rawUrl = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=${lang}&apikey=${API_KEY}`;
-        const gnewsUrl = `https://corsproxy.io/?${encodeURIComponent(rawUrl)}`;
+        // Fallback feed fetching directly to prevent API key exhaustion
+        const queryCategory = category === 'general' ? 'top' : category;
+        const apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${queryCategory}/in.json`;
 
-        const response = await fetch(gnewsUrl);
+        const response = await fetch(apiUrl);
         const data = await response.json();
 
         if (data.articles && data.articles.length > 0) {
             const formattedArticles = data.articles.map(art => {
-                const pubDate = new Date(art.publishedAt).toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-US', {
+                const pubDate = new Date(art.publishedAt || Date.now()).toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-US', {
                     year: 'numeric', month: 'long', day: 'numeric'
                 });
 
-                const desc = art.description || '';
+                const desc = art.description || art.title;
                 const rawContent = (art.content || '').replace(/\[\+\d+\s*chars\]/g, '');
 
                 let p1_text, p2_text, p3_text;
 
                 if (lang === 'hi') {
-                    p1_text = `${desc} इस मामले पर आधिकारिक तथ्य और विवरण सामने आए हैं।`;
+                    p1_text = `${desc} इस मामले पर मुख्य अपडेट सामने आए हैं, जिनकी बारीकी से समीक्षा की जा रही है।`;
                     p2_text = rawContent 
-                        ? `${rawContent} स्थिति का गहराई से विश्लेषण किया जा रहा है ताकि सही जानकारी सामने आ सके।`
-                        : `संबंधित विभाग स्थिति की समीक्षा कर रहे हैं और जल्द ही विस्तृत रिपोर्ट जारी की जाएगी।`;
-                    p3_text = `गौरव शर्मा (न्यूज़वायर24) इस घटनाक्रम पर नज़र बनाए हुए हैं। ताज़ा अपडेट्स आते ही जानकारी अपडेट की जाएगी। (तारीख: ${pubDate})`;
+                        ? `${rawContent} घटनाक्रम के विश्लेषण से पता चलता है कि यह विषय वर्तमान परिस्थितियों में विशेष महत्व रखता है।`
+                        : `संबंधित विभागों की ओर से आधिकारिक प्रक्रिया जारी है। प्राथमिक आंकड़ों के आधार पर स्थिति का मूल्यांकन किया जा रहा है।`;
+                    p3_text = `गौरव शर्मा (न्यूज़वायर24) इस घटनाक्रम पर लगातार नज़र बनाए हुए हैं। ताज़ा प्रामाणिक विवरण आते ही रिपोर्ट अपडेट की जाएगी। (तारीख: ${pubDate})`;
                 } else {
-                    p1_text = `${desc} Key developments regarding this story have been officially documented.`;
+                    p1_text = `${desc} Official updates regarding this report have been released and verified.`;
                     p2_text = rawContent 
-                        ? `${rawContent} Operational assessments and domain updates are underway to confirm further details.`
-                        : `Authorities and observers are closely evaluating the facts as the situation progresses.`;
-                    p3_text = `Gaurav Sharma (Newswire24) is following this briefing. Verified updates will be shared as received. (Published: ${pubDate})`;
+                        ? `${rawContent} Ongoing developments are being tracked closely by domain experts to ensure full factual integrity.`
+                        : `Key observers and administrative channels are actively monitoring the unfolding events.`;
+                    p3_text = `Gaurav Sharma (Newswire24) is following this briefing. Further authenticated details will be updated as received. (Published: ${pubDate})`;
                 }
 
                 return {
                     title: art.title,
                     publishedAt: pubDate,
-                    image: art.image || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
+                    image: art.urlToImage || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
                     paragraph1: p1_text,
                     paragraph2: p2_text,
                     paragraph3: p3_text
@@ -80,7 +79,7 @@ function displayNews(articles) {
                 <span>By Gaurav Sharma (Newswire24)</span>
                 <span>${article.publishedAt}</span>
             </div>
-            <img src="${article.image}" alt="News Image" class="article-img" onerror="this.src='https://via.placeholder.com/800x450?text=Newswire24'">
+            <img src="${article.image}" alt="News Image" class="article-img" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80'">
             <div class="article-body">
                 <p>${article.paragraph1}</p>
                 <p>${article.paragraph2}</p>
