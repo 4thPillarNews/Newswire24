@@ -7,11 +7,13 @@ const API_KEY = p1 + "89920885adc761c4f";
 async function fetchNews(category = 'general', lang = 'en') {
     const newsContainer = document.getElementById('news-container');
     if (newsContainer) {
-        newsContainer.innerHTML = '<div class="loading">Fetching authenticated news reports...</div>';
+        newsContainer.innerHTML = '<div class="loading">Fetching news reports...</div>';
     }
 
     try {
-        const gnewsUrl = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=${lang}&apikey=${API_KEY}`;
+        const rawUrl = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=${lang}&apikey=${API_KEY}`;
+        const gnewsUrl = `https://corsproxy.io/?${encodeURIComponent(rawUrl)}`;
+
         const response = await fetch(gnewsUrl);
         const data = await response.json();
 
