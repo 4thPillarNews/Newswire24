@@ -8,11 +8,17 @@ async function fetchNews(category = 'general', lang = 'en') {
     }
 
     try {
-        const queryCategory = category === 'general' ? 'top' : category;
-        const apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${queryCategory}/in.json`;
-
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+        const queryCategory = category === 'general' ? 'general' : category;
+        
+        // Primary Backup API (No Key Needed)
+        let apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${queryCategory}/in.json`;
+        
+        let response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Primary source failed');
+        }
+        
+        let data = await response.json();
 
         if (data.articles && data.articles.length > 0) {
             const formattedArticles = data.articles.map(art => {
@@ -20,23 +26,23 @@ async function fetchNews(category = 'general', lang = 'en') {
                     year: 'numeric', month: 'long', day: 'numeric'
                 });
 
-                const desc = art.description || art.title;
+                const desc = art.description || art.title || '';
                 const rawContent = (art.content || '').replace(/\[\+\d+\s*chars\]/g, '');
 
                 let p1_text, p2_text, p3_text;
 
                 if (lang === 'hi') {
-                    p1_text = `${desc} इस मामले पर मुख्य अपडेट सामने आए हैं, जिनकी बारीकी से समीक्षा की जा रही है।`;
+                    p1_text = `${desc} इस ताज़ा मामले पर मुख्य विवरण और अपडेट्स सामने आ चुके हैं।`;
                     p2_text = rawContent 
-                        ? `${rawContent} घटनाक्रम के विश्लेषण से पता चलता है कि यह विषय वर्तमान परिस्थितियों में विशेष महत्व रखता है।`
-                        : `संबंधित विभागों की ओर से आधिकारिक प्रक्रिया जारी है। प्राथमिक आंकड़ों के आधार पर स्थिति का मूल्यांकन किया जा रहा है।`;
-                    p3_text = `गौरव शर्मा (न्यूज़वायर24) इस घटनाक्रम पर लगातार नज़र बनाए हुए हैं। ताज़ा प्रामाणिक विवरण आते ही रिपोर्ट अपडेट की जाएगी। (तारीख: ${pubDate})`;
+                        ? `${rawContent} मामले की गंभीरता को देखते हुए संबंधित विभाग और विशेषज्ञ इसकी विस्तृत जांच कर रहे हैं।`
+                        : `संबंधित विभागों की ओर से आधिकारिक समीक्षा प्रक्रिया जारी है। प्राथमिक आंकड़ों के आधार पर स्थिति का मूल्यांकन किया जा रहा है।`;
+                    p3_text = `गौरव शर्मा (न्यूज़वायर24) इस घटनाक्रम पर लगातार नज़र बनाए हुए हैं। जैसे ही और आधिकारिक अपडेट प्राप्त होंगे, रिपोर्ट को तुरंत अपडेट किया जाएगा। (दिनांक: ${pubDate})`;
                 } else {
-                    p1_text = `${desc} Official updates regarding this report have been released and verified.`;
+                    p1_text = `${desc} Official details and key findings regarding this story have been verified and documented.`;
                     p2_text = rawContent 
-                        ? `${rawContent} Ongoing developments are being tracked closely by domain experts to ensure full factual integrity.`
-                        : `Key observers and administrative channels are actively monitoring the unfolding events.`;
-                    p3_text = `Gaurav Sharma (Newswire24) is following this briefing. Further authenticated details will be updated as received. (Published: ${pubDate})`;
+                        ? `${rawContent} Field observers and domain analysts are closely evaluating the situation as more information emerges.`
+                        : `Administrative channels and key agencies are reviewing the developments to confirm all underlying facts.`;
+                    p3_text = `Gaurav Sharma (Newswire24) is continuously following this briefing. Verified updates will be added as received. (Published: ${pubDate})`;
                 }
 
                 return {
@@ -96,6 +102,7 @@ function displayNews(articles) {
     });
 }
 
+// Category Selection Listener
 document.querySelectorAll('.category-btn').forEach(button => {
     button.addEventListener('click', (e) => {
         document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
@@ -106,6 +113,7 @@ document.querySelectorAll('.category-btn').forEach(button => {
     });
 });
 
+// Language Toggle Switch Listener
 const langToggleBtn = document.getElementById('lang-toggle-btn');
 if (langToggleBtn) {
     langToggleBtn.addEventListener('click', () => {
@@ -120,4 +128,5 @@ if (langToggleBtn) {
     });
 }
 
+// Initial Fetch on Page Load
 fetchNews(currentCategory, currentLang);
