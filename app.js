@@ -9,16 +9,14 @@ async function fetchNews(category = 'general', lang = 'en') {
 
     try {
         const queryCategory = category === 'general' ? 'general' : category;
-        
-        // Primary Backup API (No Key Needed)
-        let apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${queryCategory}/in.json`;
-        
-        let response = await fetch(apiUrl);
+        const apiUrl = `https://saurav.tech/NewsAPI/top-headlines/category/${queryCategory}/in.json`;
+
+        const response = await fetch(apiUrl);
         if (!response.ok) {
-            throw new Error('Primary source failed');
+            throw new Error('Server response failed');
         }
-        
-        let data = await response.json();
+
+        const data = await response.json();
 
         if (data.articles && data.articles.length > 0) {
             const formattedArticles = data.articles.map(art => {
@@ -102,7 +100,6 @@ function displayNews(articles) {
     });
 }
 
-// Category Selection Listener
 document.querySelectorAll('.category-btn').forEach(button => {
     button.addEventListener('click', (e) => {
         document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
@@ -113,7 +110,6 @@ document.querySelectorAll('.category-btn').forEach(button => {
     });
 });
 
-// Language Toggle Switch Listener
 const langToggleBtn = document.getElementById('lang-toggle-btn');
 if (langToggleBtn) {
     langToggleBtn.addEventListener('click', () => {
@@ -128,5 +124,4 @@ if (langToggleBtn) {
     });
 }
 
-// Initial Fetch on Page Load
 fetchNews(currentCategory, currentLang);
